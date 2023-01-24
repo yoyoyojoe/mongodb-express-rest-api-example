@@ -13,10 +13,14 @@ app.use(cors());
 app.use(express.json());
 app.use(require('./routes/record'));
 
+app.get('/', (req, res) => res.send('Hello World!'));
+
 // Global error handling
-app.use(function (err, _req, res) {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
+app.use(function (err, res, _req) {
+  if (err) {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  }
 });
 
 // perform a database connection when the server starts
@@ -28,6 +32,6 @@ dbo.connectToServer(function (err) {
 
   // start the Express server
   app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}`);
+    console.log(`Server is running on port: http://localhost:${PORT}/`);
   });
 });
