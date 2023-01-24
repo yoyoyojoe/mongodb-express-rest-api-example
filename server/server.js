@@ -13,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 app.use(require('./routes/record'));
 
+app.get('/', (req, res) => res.send('Hello World!'));
+
 // Global error handling
 app.use(function (err, res, _req) {
   console.error(err.stack);
